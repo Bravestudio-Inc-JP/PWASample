@@ -15,7 +15,7 @@ dexie.version(1).stores({
 
 
 const saveImage = async (file: File): Promise<void> => {
-    await dexie.images.add({ file });
+    await dexie.images.put({ id: 1, file });
 };
 
 // there's always going to be one image in the database
