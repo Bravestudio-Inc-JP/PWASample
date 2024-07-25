@@ -10,12 +10,12 @@
     }
 
     @media (max-width: $mantine-breakpoint-xs) {
-      width: 80% !important;
+      width: 100% !important;
     }
   }
 
   @media (max-width: $mantine-breakpoint-xs) {
-    width: 80% !important;
+    width: 100% !important;
   }
 }
 

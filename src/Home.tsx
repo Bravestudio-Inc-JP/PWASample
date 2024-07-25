@@ -1,6 +1,6 @@
 import { AspectRatio, Button, Code, FileButton, Flex, Text, Title } from "@mantine/core";
 import React, { useEffect, useMemo, useState } from "react";
-import classes from "./PermissionButton.module.css";
+import classes from "./Button.module.css";
 import { db } from "./db";
 import { formatBytes } from "./helpers";
 import useFirebaseFacade from "./hooks/useFirebaseFacade";
