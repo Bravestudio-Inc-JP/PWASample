@@ -58,15 +58,15 @@ const Home = (): React.ReactElement => {
   };
 
   return (
-    <Flex direction='column' gap='lg' p='lg'>
+    <Flex direction="column" gap="lg" p="lg">
       <Title>pwa-sample</Title>
       <Text>
         Param: {param}
       </Text>
       <Flex
-        direction='column'
-        gap='sm'
-        align='flex-start'
+        direction="column"
+        gap="sm"
+        align="flex-start"
       >
         <Button
           className={classes["button-permission"]}
@@ -77,7 +77,7 @@ const Home = (): React.ReactElement => {
         </Button>
 
         <FileButton
-          accept='image/*'
+          accept="image/*"
           onChange={onFileChange}
         >
           {(props) => { return <Button className={classes["button"]} {...props}>Camera</Button>; }}

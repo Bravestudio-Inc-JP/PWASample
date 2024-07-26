@@ -20,5 +20,6 @@ module.exports = {
     "func-style": ["error", "expression"],
     "prefer-arrow-callback": "error",
     "arrow-body-style": ["error", "always"],
+    "@stylistic/jsx-quotes": ["error", "prefer-double"],
   },
 }
