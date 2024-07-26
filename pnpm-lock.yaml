@@ -15,6 +15,9 @@ dependencies:
   '@mantine/hooks':
     specifier: ^7.11.2
     version: 7.11.2(react@18.3.1)
+  '@tabler/icons-react':
+    specifier: ^3.11.0
+    version: 3.11.0(react@18.3.1)
   compressorjs:
     specifier: ^1.2.1
     version: 1.2.1
@@ -2615,6 +2618,19 @@ packages:
       magic-string: 0.25.9
       string.prototype.matchall: 4.0.11
     dev: true
+
+  /@tabler/icons-react@3.11.0(react@18.3.1):
+    resolution: {integrity: sha512-xHNBi9mns1slvqos+7LkP3ube4CjWrANMbxMaorzwzO9J/+y1sAEG/sN8CV8FmtpYW/9/gDR+OWCjjLLg0RmAw==}
+    peerDependencies:
+      react: '>= 16'
+    dependencies:
+      '@tabler/icons': 3.11.0
+      react: 18.3.1
+    dev: false
+
+  /@tabler/icons@3.11.0:
+    resolution: {integrity: sha512-/vZinJNvCYhdAB+RUsyCpanSPuOEKHHIZi4Uu0Bw7ilewHnQhCWUPrT704uHCRli2ROl7spADPmWzAqOganA5A==}
+    dev: false
 
   /@tsconfig/node10@1.0.11:
     resolution: {integrity: sha512-DcRjDCujK/kCk/cUe8Xz8ZSpm8mS3mNNpta+jGCA6USEDfktlNvm1+IuZ9eTcDbNk41BHwpHHeW+N1lKCz4zOw==}

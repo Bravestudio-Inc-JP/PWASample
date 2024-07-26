@@ -1,16 +1,23 @@
 import Dexie, { type EntityTable } from "dexie";
 
-interface Image {
+interface ImageTable {
     id: number;
     file: File;
 }
 
-const dexie = new Dexie("ImageDB") as Dexie & {
-    images: EntityTable<Image, "id">;
+interface KvTable {
+    key: string;
+    value: string;
+}
+
+const dexie = new Dexie("PwaSampleDB") as Dexie & {
+    images: EntityTable<ImageTable, "id">;
+    kv: EntityTable<KvTable, "key">;
 };
 
 dexie.version(1).stores({
     images: "++id, image",
+    kv: "key, value",
 });
 
 
@@ -24,7 +31,18 @@ const getImage = async (): Promise<File | undefined> => {
     return image[0].file;
 };
 
+const saveKv = async (key: string, value: string): Promise<void> => {
+    await dexie.kv.put({ key, value });
+};
+
+const getKv = async (key: string): Promise<string | undefined> => {
+    const kv = await dexie.kv.get(key);
+    return kv?.value;
+};
+
 export default {
     saveImage,
-    getImage
+    getImage,
+    saveKv,
+    getKv,
 };

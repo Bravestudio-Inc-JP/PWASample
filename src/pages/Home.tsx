@@ -1,4 +1,4 @@
-import { Button, FileButton, Flex, Text, Title } from "@mantine/core";
+import { Button, Code, FileButton, Flex, Title } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import React, { useEffect, useState } from "react";
 import { compressImage } from "../compressor";
@@ -7,6 +7,7 @@ import useFirebaseFacade from "../hooks/useFirebaseFacade";
 import classes from "./components/Button.module.css";
 import ImageView from "./components/ImageView";
 import NotificationButton from "./components/NotificationButton";
+import FcmToken from "./components/FcmToken";
 
 const Home = (): React.ReactElement => {
   const [param, setParam] = useState("");
@@ -37,11 +38,12 @@ const Home = (): React.ReactElement => {
   };
 
   return (
-    <Flex direction="column" gap="lg" p="lg">
+    <Flex direction="column" gap="lg" p="lg" align="start">
       <Title>pwa-sample</Title>
-      <Text>
+      <Code>
         Param: {param}
-      </Text>
+      </Code>
+      <FcmToken />
       <Flex
         direction="column"
         gap="sm"
