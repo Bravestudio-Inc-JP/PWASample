@@ -1,6 +1,7 @@
 import { Button } from "@mantine/core";
 import { ReactElement, useEffect, useState } from "react";
 import classes from "./NotificationButton.module.css";
+import { IconCheck } from "@tabler/icons-react";
 
 const NotificationButton = (): ReactElement => {
     const [authorized, setAuthorized] = useState(false);
@@ -22,7 +23,9 @@ const NotificationButton = (): ReactElement => {
                 onClick={requestNotificationPermission}
                 disabled={authorized}
             >
-                {authorized ? "✔" : "Request Notification Permission"}
+                {authorized 
+                ? <IconCheck/>
+                 : "Request Notification Permission"}
             </Button>
         </>
     );

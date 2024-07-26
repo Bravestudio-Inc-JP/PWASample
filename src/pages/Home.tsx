@@ -48,13 +48,14 @@ const Home = (): React.ReactElement => {
         direction="column"
         gap="sm"
         align="flex-start"
+        w={"100%"}
       >
         <NotificationButton />
         <FileButton
           accept="image/*"
           onChange={onFileChange}
         >
-          {(props) => { return <Button className={classes["button"]} {...props}>Camera</Button>; }}
+          {(props) => { return <Button size="lg" className={classes["button"]} {...props}>Camera</Button>; }}
         </FileButton>
 
         <Flex direction={isMobile ? "column" : "row"} gap="sm">
@@ -64,6 +65,7 @@ const Home = (): React.ReactElement => {
 
 
         <Button
+          size="lg"
           className={classes["button"]}
           onClick={async () => {
             if (!ogImageFile) return;
