@@ -1,24 +1,18 @@
-import { AspectRatio, Button, Code, FileButton, Flex, Text, Title } from "@mantine/core";
-import React, { useEffect, useMemo, useState } from "react";
+import { Button, FileButton, Flex, Text, Title } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
+import React, { useEffect, useState } from "react";
 import classes from "./Button.module.css";
+import ImageView from "./ImageView";
+import { compressImage } from "./compressor";
 import { db } from "./db";
-import { formatBytes } from "./helpers";
 import useFirebaseFacade from "./hooks/useFirebaseFacade";
 
 const Home = (): React.ReactElement => {
   const [authorized, setAuthorized] = useState(false);
   const [param, setParam] = useState("");
-  const [imageFile, setImageFile] = useState<File>();
-  // create a imageUrl from imageFile
-  const imageUrl = useMemo(() => {
-    if (!imageFile) return;
-    console.log(`creating object url for ${imageFile.name}`);
-    const url = URL.createObjectURL(imageFile);
-    if (url) {
-      console.log(`created object url: ${url}`);
-      return url;
-    }
-  }, [imageFile]);
+  const [ogImageFile, setOgImageFile] = useState<File>();
+  const [compressedImageFile, setCompressedImageFile] = useState<Blob>();
+  const isMobile = useMediaQuery("(max-width: 36em)");
 
   useFirebaseFacade();
 
@@ -30,19 +24,11 @@ const Home = (): React.ReactElement => {
       .then((file) => {
         if (file) {
           console.log(`there's an image! ${file.name}`);
-          setImageFile(file);
+          setOgImageFile(file);
         }
       })
       .catch(console.error);
   }, []);
-
-  // Remember to revoke the object URL when the component unmounts
-  useEffect(() => {
-    return (): void => {
-      imageUrl && URL.revokeObjectURL(imageUrl);
-    };
-  }, [imageUrl]);
-
 
   // request notification permission
   const requestNotificationPermission = async (): Promise<void> => {
@@ -53,7 +39,7 @@ const Home = (): React.ReactElement => {
   const onFileChange = (file: File | null): void => {
     if (!file) return;
     db.saveImage(file)
-      .then(() => { return setImageFile(file); })
+      .then(() => { return setOgImageFile(file); })
       .catch(console.error);
   };
 
@@ -75,7 +61,6 @@ const Home = (): React.ReactElement => {
         >
           Request notification permission
         </Button>
-
         <FileButton
           accept="image/*"
           onChange={onFileChange}
@@ -83,10 +68,21 @@ const Home = (): React.ReactElement => {
           {(props) => { return <Button className={classes["button"]} {...props}>Camera</Button>; }}
         </FileButton>
 
-        <AspectRatio ratio={1080 / 720} maw={300}>
-          {imageUrl && <img src={imageUrl} alt='camera' />}
-        </AspectRatio>
-        {imageFile && <Code>{formatBytes(imageFile.size)}</Code>}
+        <Flex direction={isMobile ? "column" : "row"} gap="sm">
+          <ImageView file={ogImageFile} />
+          <ImageView file={compressedImageFile} />
+        </Flex>
+
+
+        <Button
+          className={classes["button"]}
+          onClick={async () => {
+            if (!ogImageFile) return;
+            const compressedImage = await compressImage(ogImageFile);
+            setCompressedImageFile(compressedImage);
+          }}>
+          Compress
+        </Button>
       </Flex>
     </Flex>
   );
