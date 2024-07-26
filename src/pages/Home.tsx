@@ -1,14 +1,14 @@
 import { Button, FileButton, Flex, Text, Title } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import React, { useEffect, useState } from "react";
-import classes from "./Button.module.css";
-import ImageView from "./ImageView";
-import { compressImage } from "./compressor";
-import { db } from "./db";
-import useFirebaseFacade from "./hooks/useFirebaseFacade";
+import { compressImage } from "../compressor";
+import db from "../db";
+import useFirebaseFacade from "../hooks/useFirebaseFacade";
+import classes from "./components/Button.module.css";
+import ImageView from "./components/ImageView";
+import NotificationButton from "./components/NotificationButton";
 
 const Home = (): React.ReactElement => {
-  const [authorized, setAuthorized] = useState(false);
   const [param, setParam] = useState("");
   const [ogImageFile, setOgImageFile] = useState<File>();
   const [compressedImageFile, setCompressedImageFile] = useState<Blob>();
@@ -17,11 +17,10 @@ const Home = (): React.ReactElement => {
   useFirebaseFacade();
 
   useEffect(() => {
-    Notification.permission === "granted" && setAuthorized(true);
     const urlParams = new URLSearchParams(window.location.search);
     setParam(urlParams.get("param") ?? "");
     db.getImage()
-      .then((file) => {
+      .then((file: File | undefined) => {
         if (file) {
           console.log(`there's an image! ${file.name}`);
           setOgImageFile(file);
@@ -29,12 +28,6 @@ const Home = (): React.ReactElement => {
       })
       .catch(console.error);
   }, []);
-
-  // request notification permission
-  const requestNotificationPermission = async (): Promise<void> => {
-    const permission = await Notification.requestPermission();
-    setAuthorized(permission === "granted");
-  };
 
   const onFileChange = (file: File | null): void => {
     if (!file) return;
@@ -54,13 +47,7 @@ const Home = (): React.ReactElement => {
         gap="sm"
         align="flex-start"
       >
-        <Button
-          className={classes["button-permission"]}
-          onClick={requestNotificationPermission}
-          disabled={authorized}
-        >
-          Request notification permission
-        </Button>
+        <NotificationButton />
         <FileButton
           accept="image/*"
           onChange={onFileChange}

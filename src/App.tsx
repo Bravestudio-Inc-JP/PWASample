@@ -1,7 +1,7 @@
-import React from "react";
 import { MantineProvider } from "@mantine/core";
-import Home from "./Home";
 import "@mantine/core/styles.css";
+import React from "react";
+import Home from "./pages/Home";
 
 const App = (): React.ReactElement => {
     return <React.StrictMode>

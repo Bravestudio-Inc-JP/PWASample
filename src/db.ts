@@ -24,7 +24,7 @@ const getImage = async (): Promise<File | undefined> => {
     return image[0].file;
 };
 
-export const db = {
+export default {
     saveImage,
     getImage
 };

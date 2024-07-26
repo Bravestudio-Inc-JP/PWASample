@@ -1,6 +1,6 @@
 import { AspectRatio, Code, Stack } from "@mantine/core";
 import { ReactElement, useEffect, useMemo } from "react";
-import { formatBytes } from "./helpers";
+import { formatBytes } from "../../helpers";
 interface ImageViewProps {
     file: File | Blob | undefined;
 }

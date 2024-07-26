@@ -1,0 +1,31 @@
+.button {
+  background-color: var(--mantine-color-orange-4) !important;
+  transition: all 0.5s ease;
+  width: 300px;  /* Starting width */
+  height: 40px; /* Starting height */
+}
+
+.button.circular {
+  width: 40px; /* Ending width */
+  height: 40px; /* Ending height */
+  padding: 2px;
+  animation: border-radius-animation 1.3s ease forwards;
+  background-color: var(--mantine-color-green-4) !important;
+  background-color: var(--mantine-color-green-4) !important;
+  color: var(--mantine-color-gray-7);
+}
+
+@keyframes border-radius-animation {
+  from {
+    border-radius: 8px;
+  }
+  to {
+    border-radius: 50%;
+  }
+}
+
+@media (max-width: $mantine-breakpoint-xs) {
+  .button {
+    width: 100% !important;
+  }
+}
