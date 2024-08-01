@@ -2,8 +2,7 @@ import { AppShell, Burger, Group, NavLink } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconAB, IconHome2 } from "@tabler/icons-react";
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/router-devtools";
-import { ReactElement } from "react";
+import { ReactElement, lazy } from "react";
 
 interface LinkWrapperProps {
     href: string;
@@ -11,13 +10,25 @@ interface LinkWrapperProps {
     className?: string;
 }
 
-const LinkWrapper = (props:LinkWrapperProps): ReactElement => {
+const LinkWrapper = (props: LinkWrapperProps): ReactElement => {
     return (
         <Link to={props.href} className={props.className}>
             {props.children}
         </Link>
     );
 };
+
+const Devtools =
+    process.env.NODE_ENV === "production"
+        ? (): null => { return null; } // Render nothing in production
+        : lazy(() => {
+            return import("@tanstack/router-devtools").then((m) => {
+                return {
+                    default: m.TanStackRouterDevtools,
+                };
+            });
+        }
+        );
 
 const RouteElement = (): ReactElement => {
     const [open, { toggle }] = useDisclosure();
@@ -51,7 +62,7 @@ const RouteElement = (): ReactElement => {
                     <Outlet />
                 </AppShell.Main>
             </AppShell>
-            <TanStackRouterDevtools />
+            <Devtools />
         </>
     );
 };
