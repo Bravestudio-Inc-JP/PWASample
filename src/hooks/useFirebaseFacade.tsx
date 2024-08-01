@@ -3,11 +3,12 @@ import { Messaging, getMessaging, getToken, onMessage } from "firebase/messaging
 import { initializeApp } from "firebase/app";
 import { useRegisterSW } from "virtual:pwa-register/react";
 import { firebaseConfig, vapidKey } from "../config";
-import db from "../db";
+import { useMyStore } from "../store";
 
 const useFirebaseFacade = (): void => {
   // check for updates every hour
   const period = 60 * 60 * 1000;
+  const setToken = useMyStore((state) => state.setToken);
 
   useRegisterSW({
     onRegisterError(error) {
@@ -18,7 +19,7 @@ const useFirebaseFacade = (): void => {
         const firebaseApp = initializeApp(firebaseConfig);
         const messaging = getMessaging(firebaseApp);
 
-        getFirebaseToken(messaging, swRegist);
+        getFirebaseToken(messaging, swRegist, setToken);
         handleForegroundMessage(messaging, swRegist);
       }
 
@@ -39,7 +40,7 @@ const useFirebaseFacade = (): void => {
 
 export default useFirebaseFacade;
 
-const getFirebaseToken = (messaging: Messaging, swRegist: ServiceWorkerRegistration): void => {
+const getFirebaseToken = (messaging: Messaging, swRegist: ServiceWorkerRegistration, setToken: (token: string) => void): void => {
   getToken(messaging, {
     vapidKey: vapidKey,
     serviceWorkerRegistration: swRegist,
@@ -47,7 +48,7 @@ const getFirebaseToken = (messaging: Messaging, swRegist: ServiceWorkerRegistrat
     .then((currentToken) => {
       // TODO: Use custom logger which can be disabled in production
       console.log("currentToken", currentToken);
-      db.saveKv("fcmToken", currentToken);
+      setToken(currentToken);
     });
 };
 

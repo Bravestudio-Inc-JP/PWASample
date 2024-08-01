@@ -5,11 +5,9 @@ import { IconCopy, IconCheck } from "@tabler/icons-react";
 interface CopyButtonProps {
     value: string;
 }
-const CopyButton = ({ value }: CopyButtonProps): ReactElement => {
-    return (
+const CopyButton = ({ value }: CopyButtonProps): ReactElement => (
         <CB value={value} timeout={2000}>
-            {({ copied, copy }) => {
-                return (
+            {({ copied, copy }) => (
                     <Tooltip label={copied ? "Copied" : "Copy"} withArrow position="right">
                         <ActionIcon color={copied ? "teal" : "gray"} variant="subtle" onClick={copy}>
                             {copied ? (
@@ -19,10 +17,8 @@ const CopyButton = ({ value }: CopyButtonProps): ReactElement => {
                             )}
                         </ActionIcon>
                     </Tooltip>
-                );
-            }}
+                )}
         </CB>
     );
-};
 
 export default CopyButton;

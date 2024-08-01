@@ -1,6 +1,6 @@
 import { AppShell, Burger, Group, NavLink } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconAB, IconAnchor, IconHome2, IconLink } from "@tabler/icons-react";
+import { IconAB, IconHome2, IconLink } from "@tabler/icons-react";
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { ReactElement, lazy } from "react";
 
@@ -10,24 +10,18 @@ interface LinkWrapperProps {
     className?: string;
 }
 
-const LinkWrapper = (props: LinkWrapperProps): ReactElement => {
-    return (
+const LinkWrapper = (props: LinkWrapperProps): ReactElement => (
         <Link to={props.href} className={props.className}>
             {props.children}
         </Link>
     );
-};
 
 const Devtools =
     process.env.NODE_ENV === "production"
-        ? (): null => { return null; } // Render nothing in production
-        : lazy(() => {
-            return import("@tanstack/router-devtools").then((m) => {
-                return {
+        ? (): null => null // Render nothing in production
+        : lazy(() => import("@tanstack/router-devtools").then((m) => ({
                     default: m.TanStackRouterDevtools,
-                };
-            });
-        }
+                }))
         );
 
 const RouteElement = (): ReactElement => {

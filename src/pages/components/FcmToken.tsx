@@ -1,17 +1,15 @@
-import { ReactElement, useEffect, useState } from "react";
-import db from "../../db";
+import { ReactElement, useEffect } from "react";
 import { Code, Group, Text } from "@mantine/core";
 import CopyButton from "./CopyButton";
 import classes from "./FcmToken.module.css";
+import { useMyStore } from "../../store";
 
 const FcmToken = (): ReactElement | null => {
-    const [token, setToken] = useState<string | null>(null);
+    const { token, restoreToken } = useMyStore();
 
     useEffect(() => {
-        db.getKv("fcmToken").then((token) => {
-            token && setToken(token);
-        });
-    }, []);
+        restoreToken();
+    });
 
     if (!token) return null;
     return (

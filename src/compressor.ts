@@ -1,7 +1,6 @@
 import Compress from "compressorjs";
 
-const compressImage = (file: File): Promise<Blob> => {
-    return new Promise((resolve, reject) => {
+const compressImage = (file: File): Promise<Blob> => new Promise((resolve, reject) => {
         new Compress(file, {
             quality: 0.5,
             success: (compressedFile): void => {
@@ -12,7 +11,6 @@ const compressImage = (file: File): Promise<Blob> => {
             },
         });
     });
-};
 
 export {
     compressImage

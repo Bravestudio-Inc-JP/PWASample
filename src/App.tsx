@@ -15,12 +15,10 @@ declare module "@tanstack/react-router" {
   }
 }
 
-const App = (): React.ReactElement => {
-    return <React.StrictMode>
+const App = (): React.ReactElement => <React.StrictMode>
         <MantineProvider defaultColorScheme="auto">
             <RouterProvider router={router}/>
         </MantineProvider>
     </React.StrictMode>;
-};
 
 export default App;
