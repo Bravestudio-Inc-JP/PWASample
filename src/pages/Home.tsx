@@ -24,7 +24,7 @@ const Home = (): React.ReactElement => {
 
   useEffect(() => {
     restoreOgImageFile();
-  });
+  }, [restoreOgImageFile]);
 
   const onFileChange = (file: File | null): void => {
     if (!file) return;

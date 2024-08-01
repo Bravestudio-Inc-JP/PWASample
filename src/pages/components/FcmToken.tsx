@@ -9,7 +9,7 @@ const FcmToken = (): ReactElement | null => {
 
     useEffect(() => {
         restoreToken();
-    });
+    }, [restoreToken]);
 
     if (!token) return null;
     return (
