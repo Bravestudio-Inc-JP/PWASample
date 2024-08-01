@@ -17,9 +17,15 @@ import { Route as ParameterImport } from './routes/parameter'
 
 // Create Virtual Routes
 
+const LinkTestLazyImport = createFileRoute('/link-test')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
+
+const LinkTestLazyRoute = LinkTestLazyImport.update({
+  path: '/link-test',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/link-test.lazy').then((d) => d.Route))
 
 const ParameterRoute = ParameterImport.update({
   path: '/parameter',
@@ -49,6 +55,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ParameterImport
       parentRoute: typeof rootRoute
     }
+    '/link-test': {
+      id: '/link-test'
+      path: '/link-test'
+      fullPath: '/link-test'
+      preLoaderRoute: typeof LinkTestLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -57,6 +70,7 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
   ParameterRoute,
+  LinkTestLazyRoute,
 })
 
 /* prettier-ignore-end */
@@ -68,7 +82,8 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/parameter"
+        "/parameter",
+        "/link-test"
       ]
     },
     "/": {
@@ -76,6 +91,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/parameter": {
       "filePath": "parameter.tsx"
+    },
+    "/link-test": {
+      "filePath": "link-test.lazy.tsx"
     }
   }
 }

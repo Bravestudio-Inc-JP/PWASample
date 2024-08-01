@@ -1,4 +1,4 @@
-import { Button, FileButton, Flex, Title } from "@mantine/core";
+import { Anchor, Button, FileButton, Flex, Title } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import React, { useEffect, useState } from "react";
 import { compressImage } from "../compressor";
@@ -38,6 +38,7 @@ const Home = (): React.ReactElement => {
     <Flex direction="column" gap="lg" p="lg" align="start">
       <Title>pwa-sample</Title>
       <FcmToken />
+      <Anchor href="https://google.com" target="_blank">External Link Test</Anchor>
       <Flex
         direction="column"
         gap="sm"

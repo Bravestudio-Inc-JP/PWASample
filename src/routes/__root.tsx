@@ -1,6 +1,6 @@
 import { AppShell, Burger, Group, NavLink } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconAB, IconHome2 } from "@tabler/icons-react";
+import { IconAB, IconAnchor, IconHome2, IconLink } from "@tabler/icons-react";
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { ReactElement, lazy } from "react";
 
@@ -56,6 +56,12 @@ const RouteElement = (): ReactElement => {
                         component={LinkWrapper}
                         label="Parameter"
                         leftSection={<IconAB size="1rem" stroke={1.5} />}
+                    />
+                    <NavLink
+                        href="/link-test"
+                        component={LinkWrapper}
+                        label="Link Test"
+                        leftSection={<IconLink size="1rem" stroke={1.5} />}
                     />
                 </AppShell.Navbar>
                 <AppShell.Main>
