@@ -1,7 +1,7 @@
 import { AppShell, Burger, Group, NavLink } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconAB, IconHome2 } from "@tabler/icons-react";
-import { createRootRoute, Link, LinkComponent, Outlet } from "@tanstack/react-router";
+import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { ReactElement } from "react";
 

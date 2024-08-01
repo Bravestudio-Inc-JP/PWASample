@@ -1,4 +1,4 @@
-import { Button, Code, FileButton, Flex, Title } from "@mantine/core";
+import { Button, FileButton, Flex, Title } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import React, { useEffect, useState } from "react";
 import { compressImage } from "../compressor";
