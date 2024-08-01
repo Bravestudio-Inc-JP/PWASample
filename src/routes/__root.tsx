@@ -1,0 +1,60 @@
+import { AppShell, Burger, Group, NavLink } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { IconAB, IconHome2 } from "@tabler/icons-react";
+import { createRootRoute, Link, LinkComponent, Outlet } from "@tanstack/react-router";
+import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import { ReactElement } from "react";
+
+interface LinkWrapperProps {
+    href: string;
+    children: ReactElement;
+    className?: string;
+}
+
+const LinkWrapper = (props:LinkWrapperProps): ReactElement => {
+    return (
+        <Link to={props.href} className={props.className}>
+            {props.children}
+        </Link>
+    );
+};
+
+const RouteElement = (): ReactElement => {
+    const [open, { toggle }] = useDisclosure();
+
+    return (
+        <>
+            <AppShell
+                header={{ height: 60 }}
+                navbar={{ width: 200, breakpoint: "sm", collapsed: { mobile: !open } }}
+            >
+                <AppShell.Header>
+                    <Group h="100%" px="md">
+                        <Burger opened={open} onClick={toggle} hiddenFrom="sm" size="sm" />
+                    </Group>
+                </AppShell.Header>
+                <AppShell.Navbar p="md">
+                    <NavLink
+                        href="/"
+                        label="Home"
+                        component={LinkWrapper}
+                        leftSection={<IconHome2 size="1rem" stroke={1.5} />}
+                    />
+                    <NavLink
+                        href="/parameter"
+                        component={LinkWrapper}
+                        label="Parameter"
+                        leftSection={<IconAB size="1rem" stroke={1.5} />}
+                    />
+                </AppShell.Navbar>
+                <AppShell.Main>
+                    <Outlet />
+                </AppShell.Main>
+            </AppShell>
+            <TanStackRouterDevtools />
+        </>
+    );
+};
+export const Route = createRootRoute({
+    component: RouteElement
+});

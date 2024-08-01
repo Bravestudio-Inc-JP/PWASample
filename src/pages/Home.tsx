@@ -10,7 +10,6 @@ import NotificationButton from "./components/NotificationButton";
 import FcmToken from "./components/FcmToken";
 
 const Home = (): React.ReactElement => {
-  const [param, setParam] = useState("");
   const [ogImageFile, setOgImageFile] = useState<File>();
   const [compressedImageFile, setCompressedImageFile] = useState<Blob>();
   const isMobile = useMediaQuery("(max-width: 36em)");
@@ -18,8 +17,6 @@ const Home = (): React.ReactElement => {
   useFirebaseFacade();
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    setParam(urlParams.get("param") ?? "");
     db.getImage()
       .then((file: File | undefined) => {
         if (file) {
@@ -40,9 +37,6 @@ const Home = (): React.ReactElement => {
   return (
     <Flex direction="column" gap="lg" p="lg" align="start">
       <Title>pwa-sample</Title>
-      <Code>
-        Param: {param}
-      </Code>
       <FcmToken />
       <Flex
         direction="column"
