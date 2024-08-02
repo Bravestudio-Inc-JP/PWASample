@@ -1,30 +1,44 @@
-# React + TypeScript + Vite
+# PWA Sample
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project utilizes:
+- Vite and [Vite PWA Plugin](https://vite-pwa-org.netlify.app/) for building and PWA support
+- React and TypeScript for component development
+- ESLint + ESLint stylistic for code quality
+- Zustand for state management
+- Tanstack router for routing (file-based, hash history for GitHub Pages)
+- dexie.js for IndexedDB interaction
+- compressorjs for image compression
+- mantine for UI components
+- tabler icons for iconography
+- fcm for push notifications
 
-Currently, two official plugins are available:
+The project uses `injectManifest` for the service worker strategy due to the use of a custom service worker. Workbox-* are required as devDependencies. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+PWA manifest is configured in `vite.config.ts`. 
 
-## Expanding the ESLint configuration
+`firebase-messaging-sw.ts` is a facade for firebase messaging, used in `sw.ts`.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Table of Contents
 
-- Configure the top-level `parserOptions` property like this:
+- [Setup](#setup)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+## Setup
+1. Clone the repository:
+```
+git clone https://github.com/bskevin/pwa-sample.git
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. Navigate to the project directory:
+```
+cd pwa-sample
+```
+
+3. Install dependencies:
+```
+pnpm install
+```
+
+4. Start the development server:
+```
+pnpm run dev
+```

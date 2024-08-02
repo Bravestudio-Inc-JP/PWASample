@@ -8,40 +8,40 @@ export default defineConfig({
   base: "./",
   plugins: [
     react(),
-    TanStackRouterVite(), 
+    TanStackRouterVite(),
     VitePWA({
-    strategies: "injectManifest",
-    srcDir: "src",
-    filename: "sw.ts",
-    registerType: "autoUpdate",
-    injectRegister: false,
+      strategies: "injectManifest",
+      srcDir: "src",
+      filename: "sw.ts",
+      registerType: "autoUpdate",
+      injectRegister: false,
 
-    pwaAssets: {
-      disabled: false,
-      config: true,
-    },
+      pwaAssets: {
+        disabled: false,
+        config: true,
+      },
 
-    manifest: {
-      name: "pwa-sample",
-      short_name: "pwa-sample",
-      description: "pwa-sample",
-      theme_color: "#ffffff",
-      display: "standalone",
-    },
+      manifest: {
+        name: "pwa-sample",
+        short_name: "pwa-sample",
+        description: "pwa-sample",
+        theme_color: "#ffffff",
+        display: "standalone",
+      },
 
-    injectManifest: {
-      globPatterns: ["**/*.{js,css,html,svg,png,ico}"],
-    },
+      injectManifest: {
+        globPatterns: ["**/*.{js,css,html,svg,png,ico}"],
+      },
 
-    devOptions: {
-      enabled: process.env.SW_DEV === "true",
-      navigateFallback: "index.html",
-      suppressWarnings: true,
-      type: "module",
-    },
+      devOptions: {
+        enabled: process.env.SW_DEV === "true",
+        navigateFallback: "index.html",
+        suppressWarnings: true,
+        type: "module",
+      },
 
-    workbox: {
-      sourcemap: true,
-    }
-  })],
+      workbox: {
+        sourcemap: true,
+      }
+    })],
 });

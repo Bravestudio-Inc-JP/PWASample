@@ -29,5 +29,6 @@ self.addEventListener("notificationclick", (event) => {
   
 });
 
+// https://vite-pwa-org.netlify.app/guide/inject-manifest.html#service-worker-code-1
 self.skipWaiting();
 clientsClaim();
