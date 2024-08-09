@@ -30,6 +30,9 @@ importers:
       dexie:
         specifier: ^4.0.8
         version: 4.0.8
+      exifreader:
+        specifier: ^4.23.3
+        version: 4.23.3
       firebase:
         specifier: ^10.12.4
         version: 10.12.4
@@ -1553,6 +1556,10 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0
 
+  '@xmldom/xmldom@0.8.10':
+    resolution: {integrity: sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==}
+    engines: {node: '>=10.0.0'}
+
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
@@ -1991,6 +1998,9 @@ packages:
   esutils@2.0.3:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
+
+  exifreader@4.23.3:
+    resolution: {integrity: sha512-/Ii4jiNp/5BXdKOiWXZYrWmZFn/ANu3bMVGO7GFQufao5M52/fK2OsAPMH34PL4S79z1eZBzAoaYyBXit0zzVA==}
 
   expand-template@2.0.3:
     resolution: {integrity: sha512-XYfuKMvj4O35f/pOXLObndIRvyQ+/+6AhODh+OKWj9S9498pHHn/IMszH+gt0fBCRWMNfk1ZSp5x3AifmnI2vg==}
@@ -5056,6 +5066,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@xmldom/xmldom@0.8.10':
+    optional: true
+
   acorn-jsx@5.3.2(acorn@8.12.1):
     dependencies:
       acorn: 8.12.1
@@ -5607,6 +5620,10 @@ snapshots:
   estree-walker@2.0.2: {}
 
   esutils@2.0.3: {}
+
+  exifreader@4.23.3:
+    optionalDependencies:
+      '@xmldom/xmldom': 0.8.10
 
   expand-template@2.0.3: {}
 

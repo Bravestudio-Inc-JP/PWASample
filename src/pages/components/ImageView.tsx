@@ -1,8 +1,8 @@
 import { AspectRatio, Code, Stack } from "@mantine/core";
-import { ReactElement, useEffect, useMemo } from "react";
+import { ReactElement, useMemo } from "react";
 import { formatBytes } from "../../helpers";
 interface ImageViewProps {
-    file: File | Blob | null;
+    file: File | Blob | undefined | null;
 }
 const ImageView = ({ file }: ImageViewProps): ReactElement => {
     // create a imageUrl from imageFile
@@ -15,11 +15,6 @@ const ImageView = ({ file }: ImageViewProps): ReactElement => {
             return url;
         }
     }, [file]);
-
-    // Remember to revoke the object URL when the component unmounts
-    useEffect(() => (): void => {
-        imageUrl && URL.revokeObjectURL(imageUrl);
-    }, [imageUrl]);
 
     return (
         <Stack align="start">

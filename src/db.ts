@@ -2,7 +2,7 @@ import Dexie, { type EntityTable } from "dexie";
 
 interface ImageTable {
     id: number;
-    file: File;
+    file: File | Blob;
 }
 
 interface KvTable {
@@ -16,19 +16,19 @@ const dexie = new Dexie("PwaSampleDB") as Dexie & {
 };
 
 dexie.version(1).stores({
-    images: "++id, image",
+    images: "id, image",
     kv: "key, value",
 });
 
 
-const saveImage = async (file: File): Promise<void> => {
-    await dexie.images.put({ id: 1, file });
+const saveImage = async (file: File | Blob, id: number): Promise<void> => {
+    await dexie.images.put({ id: id, file });
 };
+const getImage = async (id: number): Promise<File | Blob | undefined> => {
+    const images = await dexie.images.toArray();
+    const image = images.find(image => image.id === id);
 
-// there's always going to be one image in the database
-const getImage = async (): Promise<File | undefined> => {
-    const image = await dexie.images.toArray();
-    return image[0].file;
+    return image?.file;
 };
 
 const saveKv = async (key: string, value: string): Promise<void> => {

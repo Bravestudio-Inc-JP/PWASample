@@ -1,11 +1,29 @@
-import { Stack } from "@mantine/core";
+import { Anchor, Code, Stack } from "@mantine/core";
 import { ReactElement } from "react";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useEffect } from "react";
+import { useMyStore } from "../store";
+import ImageView from "./components/ImageView";
 
 const CameraCapture = (): ReactElement => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const [photo, setPhoto] = useState<string | null>(null);
+    const {
+        ogImageFile,
+        locationUrl,
+        setOgImageFile,
+        restoreOgImageFile,
+        setLocationUrl
+    } = useMyStore();
+
+    useEffect(() => {
+        restoreOgImageFile(2);
+    }, [restoreOgImageFile]);
+
+    useEffect(() => {
+        if (!ogImageFile) return;
+        setLocationUrl(ogImageFile.file);
+    }, [ogImageFile, setLocationUrl]);
+
 
     useEffect(() => {
         const videoElement = videoRef.current;
@@ -40,32 +58,39 @@ const CameraCapture = (): ReactElement => {
                 canvasRef.current.width = videoRef.current.videoWidth;
                 canvasRef.current.height = videoRef.current.videoHeight;
                 context.drawImage(videoRef.current, 0, 0, canvasRef.current.width, canvasRef.current.height);
-                const dataUrl = canvasRef.current.toDataURL("image/png");
-                setPhoto(dataUrl);
+                canvasRef.current.toBlob(blob => {
+                    if (blob) {
+                        setOgImageFile(blob, 2);
+                    }
+                });
             }
         }
     };
 
     return (
-        <div>
+        <Stack p="md">
             <video ref={videoRef}></video>
             <button onClick={takePhoto}>Take Photo</button>
             <canvas ref={canvasRef} hidden></canvas>
-            {photo && (
+            {ogImageFile && (
                 <div>
                     <h2>Captured Photo:</h2>
-                    <img src={photo} alt="Captured" />
+                    <ImageView file={ogImageFile.file} />
                 </div>
             )}
-        </div>
+
+            <Code>
+                {locationUrl ? <Anchor href={locationUrl} target="_blank">{locationUrl}</Anchor> : "No GPS data found in the image."}
+            </Code>
+        </Stack>
     );
 };
 
 const WebRtc = (): ReactElement => {
     return (
-        <Stack p="md">
+        <>
             <CameraCapture />
-        </Stack>
+        </>
     );
 };
 
