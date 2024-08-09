@@ -43,8 +43,10 @@ export const createImageSlice: StateCreator<
             tags = await EXIF.load(image);
         } else {
             const arrayBuffer = await image.arrayBuffer();
-            tags = await EXIF.load(arrayBuffer);
+            tags = EXIF.load(arrayBuffer);
         }
+
+        console.log("exif", tags);
 
         const latitude = getCoordinate(
             tags.GPSLatitude?.value as unknown as GPSCoordinate,
