@@ -13,24 +13,30 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as ParameterImport } from './routes/parameter'
 
 // Create Virtual Routes
 
+const WebrtcLazyImport = createFileRoute('/webrtc')()
+const ParameterLazyImport = createFileRoute('/parameter')()
 const LinkTestLazyImport = createFileRoute('/link-test')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
 
+const WebrtcLazyRoute = WebrtcLazyImport.update({
+  path: '/webrtc',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/webrtc.lazy').then((d) => d.Route))
+
+const ParameterLazyRoute = ParameterLazyImport.update({
+  path: '/parameter',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/parameter.lazy').then((d) => d.Route))
+
 const LinkTestLazyRoute = LinkTestLazyImport.update({
   path: '/link-test',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/link-test.lazy').then((d) => d.Route))
-
-const ParameterRoute = ParameterImport.update({
-  path: '/parameter',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
@@ -48,18 +54,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/parameter': {
-      id: '/parameter'
-      path: '/parameter'
-      fullPath: '/parameter'
-      preLoaderRoute: typeof ParameterImport
-      parentRoute: typeof rootRoute
-    }
     '/link-test': {
       id: '/link-test'
       path: '/link-test'
       fullPath: '/link-test'
       preLoaderRoute: typeof LinkTestLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/parameter': {
+      id: '/parameter'
+      path: '/parameter'
+      fullPath: '/parameter'
+      preLoaderRoute: typeof ParameterLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/webrtc': {
+      id: '/webrtc'
+      path: '/webrtc'
+      fullPath: '/webrtc'
+      preLoaderRoute: typeof WebrtcLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -69,8 +82,9 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
-  ParameterRoute,
   LinkTestLazyRoute,
+  ParameterLazyRoute,
+  WebrtcLazyRoute,
 })
 
 /* prettier-ignore-end */
@@ -82,18 +96,22 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/link-test",
         "/parameter",
-        "/link-test"
+        "/webrtc"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
     },
-    "/parameter": {
-      "filePath": "parameter.tsx"
-    },
     "/link-test": {
       "filePath": "link-test.lazy.tsx"
+    },
+    "/parameter": {
+      "filePath": "parameter.lazy.tsx"
+    },
+    "/webrtc": {
+      "filePath": "webrtc.lazy.tsx"
     }
   }
 }

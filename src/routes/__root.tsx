@@ -1,6 +1,6 @@
 import { AppShell, Burger, Group, NavLink } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconAB, IconHome2, IconLink } from "@tabler/icons-react";
+import { IconAB, IconCamera, IconHome2, IconLink } from "@tabler/icons-react";
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { ReactElement, lazy } from "react";
 
@@ -11,17 +11,17 @@ interface LinkWrapperProps {
 }
 
 const LinkWrapper = (props: LinkWrapperProps): ReactElement => (
-        <Link to={props.href} className={props.className}>
-            {props.children}
-        </Link>
-    );
+    <Link to={props.href} className={props.className}>
+        {props.children}
+    </Link>
+);
 
 const Devtools =
     process.env.NODE_ENV === "production"
         ? (): null => null // Render nothing in production
         : lazy(() => import("@tanstack/router-devtools").then((m) => ({
-                    default: m.TanStackRouterDevtools,
-                }))
+            default: m.TanStackRouterDevtools,
+        }))
         );
 
 const RouteElement = (): ReactElement => {
@@ -56,6 +56,12 @@ const RouteElement = (): ReactElement => {
                         component={LinkWrapper}
                         label="Link Test"
                         leftSection={<IconLink size="1rem" stroke={1.5} />}
+                    />
+                    <NavLink
+                        href="/webrtc"
+                        component={LinkWrapper}
+                        label="WebRTC"
+                        leftSection={<IconCamera size="1rem" stroke={1.5} />}
                     />
                 </AppShell.Navbar>
                 <AppShell.Main>
