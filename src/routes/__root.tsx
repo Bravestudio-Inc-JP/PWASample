@@ -1,7 +1,7 @@
 import { AppShell, Burger, Group, NavLink } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconAB, IconCamera, IconHome2, IconLink } from "@tabler/icons-react";
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
+import { Link, Outlet, createRootRoute } from "@tanstack/react-router";
 import { ReactElement, lazy } from "react";
 
 interface LinkWrapperProps {
@@ -62,6 +62,12 @@ const RouteElement = (): ReactElement => {
                         component={LinkWrapper}
                         label="WebRTC"
                         leftSection={<IconCamera size="1rem" stroke={1.5} />}
+                    />
+                    <NavLink
+                        href="/pdf-test"
+                        component={LinkWrapper}
+                        label="PDF Test"
+                        leftSection={<IconAB size="1rem" stroke={1.5} />}
                     />
                 </AppShell.Navbar>
                 <AppShell.Main>

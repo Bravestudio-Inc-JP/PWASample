@@ -21,8 +21,10 @@
     "exifreader": "^4.23.3",
     "firebase": "^10.12.4",
     "install": "^0.13.0",
+    "pdfjs-dist": "4.4.168",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-pdf": "^9.1.0",
     "zustand": "^4.5.4"
   },
   "devDependencies": {
@@ -46,6 +48,7 @@
     "typescript": "^5.2.2",
     "vite": "^5.2.10",
     "vite-plugin-pwa": "^0.20.0",
+    "vite-plugin-static-copy": "^1.0.6",
     "workbox-core": "^7.1.0",
     "workbox-precaching": "^7.1.0",
     "workbox-routing": "^7.1.0",

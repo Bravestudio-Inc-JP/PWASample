@@ -1,7 +1,15 @@
-import { VitePWA } from "vite-plugin-pwa";
-import { defineConfig } from "vite";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
+import { defineConfig, normalizePath } from "vite";
+import { VitePWA } from "vite-plugin-pwa";
+
+import { createRequire } from "node:module";
+import path from "node:path";
+import { viteStaticCopy } from "vite-plugin-static-copy";
+
+const require = createRequire(import.meta.url);
+const pdfjsDistPath = path.dirname(require.resolve("./node_modules/pdfjs-dist/package.json"));
+const cMapsDir = normalizePath(path.join(pdfjsDistPath, "cmaps"));
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,6 +17,14 @@ export default defineConfig({
   plugins: [
     react(),
     TanStackRouterVite(),
+    viteStaticCopy({
+      targets: [
+        {
+          src: cMapsDir,
+          dest: "",
+        },
+      ],
+    }),
     VitePWA({
       strategies: "injectManifest",
       srcDir: "src",
@@ -42,6 +58,6 @@ export default defineConfig({
 
       workbox: {
         sourcemap: true,
-      }
+      },
     })],
 });
