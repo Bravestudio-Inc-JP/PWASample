@@ -1,6 +1,7 @@
-import { Stack, Text, TextInput } from "@mantine/core";
+import { Code, Stack } from "@mantine/core";
 import { useResizeObserver } from "@mantine/hooks";
-import { ReactElement, useState } from "react";
+import { getRouteApi } from "@tanstack/react-router";
+import { ReactElement } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
@@ -18,9 +19,10 @@ const options = {
 
 const maxWidth = 700;
 
+const route = getRouteApi("/pdf-test");
 
 const PDFTest = (): ReactElement => {
-    const [url, setUrl] = useState<string>("https://cdn.filestackcontent.com/wcrjf9qPTCKXV3hMXDwK");
+    const { url } = route.useSearch();
     const { numPages, setNumPages } = useMyStore();
     const [containerRef, rect] = useResizeObserver();
 
@@ -30,8 +32,7 @@ const PDFTest = (): ReactElement => {
 
     return (
         <Stack p="md">
-            <Text c="yellow">Link without CORS restriction</Text>
-            <TextInput value={url} onChange={(event) => setUrl(event.currentTarget.value)} placeholder="Enter PDF URL" />
+            <Code>{url}</Code>
             <div ref={containerRef}>
                 <Document file={url} onLoadSuccess={(proxy) => onDocumentLoadSuccess(proxy.numPages)} options={options}>
                     {Array.from(new Array(numPages), (_, index) => (

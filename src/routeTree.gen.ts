@@ -13,11 +13,11 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as PdfTestImport } from './routes/pdf-test'
 
 // Create Virtual Routes
 
 const WebrtcLazyImport = createFileRoute('/webrtc')()
-const PdfTestLazyImport = createFileRoute('/pdf-test')()
 const ParameterLazyImport = createFileRoute('/parameter')()
 const LinkTestLazyImport = createFileRoute('/link-test')()
 const IndexLazyImport = createFileRoute('/')()
@@ -29,11 +29,6 @@ const WebrtcLazyRoute = WebrtcLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/webrtc.lazy').then((d) => d.Route))
 
-const PdfTestLazyRoute = PdfTestLazyImport.update({
-  path: '/pdf-test',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/pdf-test.lazy').then((d) => d.Route))
-
 const ParameterLazyRoute = ParameterLazyImport.update({
   path: '/parameter',
   getParentRoute: () => rootRoute,
@@ -43,6 +38,11 @@ const LinkTestLazyRoute = LinkTestLazyImport.update({
   path: '/link-test',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/link-test.lazy').then((d) => d.Route))
+
+const PdfTestRoute = PdfTestImport.update({
+  path: '/pdf-test',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
@@ -60,6 +60,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/pdf-test': {
+      id: '/pdf-test'
+      path: '/pdf-test'
+      fullPath: '/pdf-test'
+      preLoaderRoute: typeof PdfTestImport
+      parentRoute: typeof rootRoute
+    }
     '/link-test': {
       id: '/link-test'
       path: '/link-test'
@@ -72,13 +79,6 @@ declare module '@tanstack/react-router' {
       path: '/parameter'
       fullPath: '/parameter'
       preLoaderRoute: typeof ParameterLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/pdf-test': {
-      id: '/pdf-test'
-      path: '/pdf-test'
-      fullPath: '/pdf-test'
-      preLoaderRoute: typeof PdfTestLazyImport
       parentRoute: typeof rootRoute
     }
     '/webrtc': {
@@ -95,9 +95,9 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
+  PdfTestRoute,
   LinkTestLazyRoute,
   ParameterLazyRoute,
-  PdfTestLazyRoute,
   WebrtcLazyRoute,
 })
 
@@ -110,23 +110,23 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/pdf-test",
         "/link-test",
         "/parameter",
-        "/pdf-test",
         "/webrtc"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
     },
+    "/pdf-test": {
+      "filePath": "pdf-test.tsx"
+    },
     "/link-test": {
       "filePath": "link-test.lazy.tsx"
     },
     "/parameter": {
       "filePath": "parameter.lazy.tsx"
-    },
-    "/pdf-test": {
-      "filePath": "pdf-test.lazy.tsx"
     },
     "/webrtc": {
       "filePath": "webrtc.lazy.tsx"
