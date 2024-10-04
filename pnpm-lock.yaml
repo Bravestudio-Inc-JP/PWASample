@@ -42,6 +42,9 @@ importers:
       pdfjs-dist:
         specifier: 4.4.168
         version: 4.4.168
+      piexif-ts:
+        specifier: ^2.1.0
+        version: 2.1.0
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -2711,6 +2714,9 @@ packages:
   picomatch@4.0.2:
     resolution: {integrity: sha512-M7BAV6Rlcy5u+m6oPhAPFgJTzAioX/6B0DxyvDlo9l8+T3nLKbrczg2WLUyzd45L8RqfUMyGPzekbMvX2Ldkwg==}
     engines: {node: '>=12'}
+
+  piexif-ts@2.1.0:
+    resolution: {integrity: sha512-Fk1T7NbZnmiI4IPHrxz8y3dpzMAywDk1+9g0iGwHf+UPYPZJ1/CKALzhPPRPqAxwalwNz2t0NB4krY/PkAI93A==}
 
   possible-typed-array-names@1.0.0:
     resolution: {integrity: sha512-d7Uw+eZoloe0EHDIYoe+bQ5WXnGMOpmiZFTuMWCwpjzzkL2nTjcKiAk4hh8TjnGye2TwWOk3UXucZ+3rbmBa8Q==}
@@ -6506,6 +6512,8 @@ snapshots:
   picomatch@2.3.1: {}
 
   picomatch@4.0.2: {}
+
+  piexif-ts@2.1.0: {}
 
   possible-typed-array-names@1.0.0: {}
 

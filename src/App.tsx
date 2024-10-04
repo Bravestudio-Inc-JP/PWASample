@@ -1,7 +1,8 @@
 import { MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
+import { RouterProvider, createRouter } from "@tanstack/react-router";
 import React from "react";
-import { RouterProvider, createHashHistory, createRouter } from "@tanstack/react-router";
+
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
 
@@ -16,12 +17,14 @@ declare module "@tanstack/react-router" {
 }
 
 // REMOVE THIS IF THIS IS NOT HOSTED ON GITHUB PAGES
-const hashHistory = createHashHistory();
+// const hashHistory = createHashHistory();
 
-const App = (): React.ReactElement => <React.StrictMode>
+const App = (): React.ReactElement =>  {
+  return <React.StrictMode>
   <MantineProvider defaultColorScheme="auto">
-    <RouterProvider router={router} history={hashHistory} />
+    <RouterProvider router={router}  />
   </MantineProvider>
 </React.StrictMode>;
+};
 
 export default App;

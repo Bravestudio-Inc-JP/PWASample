@@ -60,4 +60,9 @@ export default defineConfig({
         sourcemap: true,
       },
     })],
+    resolve: {
+      alias: {
+        "piexif-ts": path.resolve(__dirname, "node_modules/piexif-ts/dist/piexif.js"),
+      }
+    }
 });

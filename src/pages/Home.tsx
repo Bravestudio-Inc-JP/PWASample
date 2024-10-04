@@ -8,6 +8,7 @@ import ImageView from "./components/ImageView";
 import NotificationButton from "./components/NotificationButton";
 import FcmToken from "./components/FcmToken";
 import { useMyStore } from "../store";
+import Location from "./components/Location";
 
 const Home = (): React.ReactElement => {
   const {
@@ -37,9 +38,11 @@ const Home = (): React.ReactElement => {
     setOgImageFile(file, 1);
   };
 
+
   return (
     <Flex direction="column" gap="lg" p="lg" align="start">
       <Title>pwa-sample</Title>
+      <Location />
       <FcmToken />
       <Anchor href="https://google.com" target="_blank">External Link Test</Anchor>
       <Flex

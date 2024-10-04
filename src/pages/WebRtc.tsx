@@ -62,7 +62,7 @@ const CameraCapture = (): ReactElement => {
                     if (blob) {
                         setOgImageFile(blob, 2);
                     }
-                });
+                }, "image/jpeg", 1);
             }
         }
     };
